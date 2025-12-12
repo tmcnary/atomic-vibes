@@ -20,8 +20,20 @@ echo "Creating new feature branch: $BRANCH_NAME"
 # Ensure we're on main/develop and up to date
 MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
 echo "Updating $MAIN_BRANCH..."
+
+# Temporarily stash state file to avoid checkout conflicts
+STATE_FILE=".agent/state/current-state.json"
+if [ -f "$STATE_FILE" ]; then
+    cp "$STATE_FILE" "${STATE_FILE}.backup"
+fi
+
 git checkout $MAIN_BRANCH 2>/dev/null || git checkout -b $MAIN_BRANCH
 git pull origin $MAIN_BRANCH 2>/dev/null || echo "No remote configured yet"
+
+# Restore state file backup if it existed
+if [ -f "${STATE_FILE}.backup" ]; then
+    mv "${STATE_FILE}.backup" "$STATE_FILE"
+fi
 
 # Create feature branch
 git checkout -b $BRANCH_NAME
