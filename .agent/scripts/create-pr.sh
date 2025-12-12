@@ -41,11 +41,16 @@ fi
 # Run other checks
 echo ""
 echo "Running pre-PR checks..."
-if ! ./.agent/scripts/run-checks.sh; then
+if ! source ./.agent/scripts/run-checks.sh; then
     echo ""
     print_error "Checks failed. Please fix issues before creating PR."
     exit 1
 fi
+
+# Capture check results for state update later
+BUILD_STATUS="$RUN_CHECKS_BUILD_STATUS"
+LINT_STATUS="$RUN_CHECKS_LINT_STATUS"
+TEST_STATUS="$RUN_CHECKS_TEST_STATUS"
 
 # Extract feature ID from branch name or PR title
 FEATURE_ID=$(echo "$PR_TITLE" | grep -o '\[.*\]' | tr -d '[]' || echo "$CURRENT_BRANCH" | grep -o '^[^-]*' || echo "UNKNOWN")
@@ -110,3 +115,8 @@ else
     echo "Body:"
     echo "$PR_BODY"
 fi
+
+# Update state after all git operations complete
+echo ""
+echo "Updating project state..."
+./.agent/scripts/update-state.sh "$BUILD_STATUS" "$LINT_STATUS" "$TEST_STATUS"

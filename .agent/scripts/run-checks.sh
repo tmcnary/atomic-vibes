@@ -80,11 +80,11 @@ else
 fi
 echo ""
 
-# Update state with check results (avoid duplicate execution)
-echo "Updating project state with check results..."
-./.agent/scripts/update-state.sh "$BUILD_STATUS" "$LINT_STATUS" "$TEST_STATUS"
+# Export status for caller to handle state update after git operations
+export RUN_CHECKS_BUILD_STATUS="$BUILD_STATUS"
+export RUN_CHECKS_LINT_STATUS="$LINT_STATUS"
+export RUN_CHECKS_TEST_STATUS="$TEST_STATUS"
 
-echo ""
 if [ "$CHECKS_PASSED" = true ]; then
     exit 0
 else

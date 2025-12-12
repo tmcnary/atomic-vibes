@@ -119,7 +119,7 @@
         "Test './atomic new-feature TEST-001 desc' creates feature branch",
         "Confirm all commands work without direct .agent/scripts/ paths"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "CHECKS-001",
@@ -147,7 +147,7 @@
         "Confirm buildStatus, lintStatus, testStatus reflect check results",
         "Check that lastUpdated timestamp is current"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "STATE-001",
