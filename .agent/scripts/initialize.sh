@@ -133,25 +133,14 @@ if [ -f "$TEMPLATE_DIR/.agent/memory/context.json" ]; then
     echo -e "${GREEN}✓ Copied context.json template${NC}"
 fi
 
-# Create scripts directory structure
-mkdir -p scripts/lib
+# Copy scripts (already part of .agent/scripts/ structure)
+# They were copied with the .agent directory above
 
-# Copy core scripts
-if [ -d "$TEMPLATE_DIR/scripts" ]; then
-    for script in boot-up.sh run-checks.sh new-feature.sh update-state.sh create-pr.sh validate-tests.sh install-hooks.sh; do
-        if [ -f "$TEMPLATE_DIR/scripts/$script" ]; then
-            cp "$TEMPLATE_DIR/scripts/$script" scripts/
-            chmod +x "scripts/$script"
-            echo -e "${GREEN}✓ Copied scripts/$script${NC}"
-        fi
-    done
-
-    # Copy lib directory
-    if [ -d "$TEMPLATE_DIR/scripts/lib" ]; then
-        cp -r "$TEMPLATE_DIR/scripts/lib/"* scripts/lib/ 2>/dev/null || true
-        chmod +x scripts/lib/*.sh 2>/dev/null || true
-        echo -e "${GREEN}✓ Copied scripts/lib/ utilities${NC}"
-    fi
+# Copy the atomic wrapper script to project root
+if [ -f "$TEMPLATE_DIR/atomic" ]; then
+    cp "$TEMPLATE_DIR/atomic" atomic
+    chmod +x atomic
+    echo -e "${GREEN}✓ Copied atomic wrapper script${NC}"
 fi
 
 # Copy git hooks
