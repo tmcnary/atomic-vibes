@@ -3,7 +3,7 @@
 # An atomic vibe-coding harness for AI agents
 # Usage:
 #   Local: ./.agent/scripts/initialize.sh
-#   Remote: curl -fsSL https://raw.githubusercontent.com/tmcnary/atomic-vibes/main/scripts/initialize.sh | bash
+#   Remote: curl -fsSL https://raw.githubusercontent.com/tmcnary/atomic-vibes/main/.agent/scripts/initialize.sh | bash
 
 set -e
 
@@ -39,7 +39,7 @@ fi
 
 # Check if this is being run from the template repo or remotely
 TEMPLATE_DIR=""
-if [ -f "scripts/initialize.sh" ] && [ -f ".agent/protocols/AGENT_README.md" ]; then
+if [ -f ".agent/scripts/initialize.sh" ] && [ -f ".agent/protocols/AGENT_README.md" ]; then
     # Running locally from template
     TEMPLATE_DIR="."
     echo -e "${GREEN}✓ Running from template directory${NC}"

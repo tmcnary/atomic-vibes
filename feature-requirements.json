@@ -1,395 +1,249 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "lastUpdated": "2025-12-11",
-    "project": "Sample Multi-Domain Feature Requirements Catalog",
-    "description": "Example feature requirements file covering multiple application types (web, mobile, API, data, automation). Features should start as failing and only the 'passes' field should ever be updated by tools or tests. Never remove or edit tests once created."
+    "lastUpdated": "2025-12-12",
+    "project": "Atomic Vibes",
+    "description": "An atomic vibe-coding harness for AI agents. Tests ensure the installer creates a self-contained system without polluting the project."
   },
   "features": [
     {
-      "id": "WEB-001",
-      "category": "web-navigation",
+      "id": "INSTALL-001",
+      "category": "installation",
       "priority": "high",
-      "description": "Marketing site landing page accessible at root path",
+      "description": "Installer creates .agent directory structure in target project",
       "steps": [
-        "Open a browser and navigate to '/'",
-        "Verify a marketing style landing page is rendered",
-        "Confirm there is a primary headline describing the product or service",
-        "Verify there is a clear primary call-to-action button (e.g. 'Get started')",
-        "Check that the page returns HTTP 200"
+        "Run the installer via curl in a test project directory",
+        "Verify .agent/ directory is created",
+        "Confirm .agent/scripts/ contains all automation scripts",
+        "Confirm .agent/protocols/ contains agent instruction files",
+        "Confirm .agent/docs/ contains documentation files",
+        "Verify NO scripts/ directory is created at project root"
       ],
       "passes": false
     },
     {
-      "id": "WEB-002",
-      "category": "web-navigation",
+      "id": "INSTALL-002",
+      "category": "installation",
+      "priority": "high",
+      "description": "Installer copies atomic wrapper script to project root",
+      "steps": [
+        "Run the installer in a test project",
+        "Verify 'atomic' file exists at project root",
+        "Confirm atomic file is executable (has +x permission)",
+        "Run './atomic' with no args and verify help text displays",
+        "Verify help text shows available commands"
+      ],
+      "passes": false
+    },
+    {
+      "id": "INSTALL-003",
+      "category": "installation",
+      "priority": "high",
+      "description": "Installer does not create or modify project scripts directory",
+      "steps": [
+        "Create a test project with existing scripts/ directory",
+        "Add a dummy script to scripts/ to verify it's not touched",
+        "Run the Atomic Vibes installer",
+        "Verify the dummy script still exists unchanged",
+        "Confirm NO new files were added to scripts/",
+        "Verify all Atomic Vibes scripts are in .agent/scripts/ only"
+      ],
+      "passes": false
+    },
+    {
+      "id": "INSTALL-004",
+      "category": "installation",
+      "priority": "high",
+      "description": "Installer respects existing .agent directory",
+      "steps": [
+        "Create .agent/ directory in test project",
+        "Run installer and choose to re-initialize when prompted",
+        "Verify installer completes successfully",
+        "Confirm all required files are present in .agent/",
+        "Check that installer warns about existing .agent/ before proceeding"
+      ],
+      "passes": false
+    },
+    {
+      "id": "INSTALL-005",
+      "category": "installation",
       "priority": "medium",
-      "description": "Documentation page accessible from main navigation",
+      "description": "Git hooks are installed for test immutability",
       "steps": [
-        "Navigate to the landing page",
-        "Locate and click the 'Docs' or 'Documentation' link in the header or footer",
-        "Verify the URL changes to '/docs' or similar documentation path",
-        "Confirm a documentation layout renders with a sidebar of topics",
-        "Verify at least one documentation article is visible and readable"
+        "Run installer in a git repository",
+        "Verify .githooks/pre-commit file exists",
+        "Confirm pre-commit hook is executable",
+        "Run './atomic install-hooks' to install hooks",
+        "Verify .git/hooks/pre-commit links to .githooks/pre-commit"
       ],
       "passes": false
     },
     {
-      "id": "WEB-003",
-      "category": "web-navigation",
+      "id": "BOOT-001",
+      "category": "boot-up",
+      "priority": "high",
+      "description": "Boot-up ritual displays Atomic Vibes branding",
+      "steps": [
+        "Install Atomic Vibes in a test project",
+        "Run './atomic boot-up'",
+        "Verify output shows '⚛️ Atomic Vibes' header",
+        "Confirm output does NOT say 'Atomic Implementation System'",
+        "Check that all sections display properly formatted"
+      ],
+      "passes": false
+    },
+    {
+      "id": "BOOT-002",
+      "category": "boot-up",
+      "priority": "high",
+      "description": "Boot-up validates environment and shows status",
+      "steps": [
+        "Run './atomic boot-up' in installed project",
+        "Verify it reads protocols from .agent/protocols/",
+        "Confirm it shows current state from .agent/state/current-state.json",
+        "Check that it validates git repository status",
+        "Verify it completes without errors"
+      ],
+      "passes": false
+    },
+    {
+      "id": "WRAPPER-001",
+      "category": "atomic-wrapper",
+      "priority": "high",
+      "description": "Atomic wrapper provides clean CLI for all commands",
+      "steps": [
+        "Run './atomic' with no arguments",
+        "Verify help text displays with list of commands",
+        "Test './atomic boot-up' executes boot-up script",
+        "Test './atomic checks' executes run-checks script",
+        "Test './atomic new-feature TEST-001 desc' creates feature branch",
+        "Confirm all commands work without direct .agent/scripts/ paths"
+      ],
+      "passes": false
+    },
+    {
+      "id": "CHECKS-001",
+      "category": "quality-checks",
+      "priority": "high",
+      "description": "Run checks validates test immutability first",
+      "steps": [
+        "Run './atomic checks'",
+        "Verify step 0 validates test immutability",
+        "Confirm validation runs before lint/build/test",
+        "Check that checks abort if test validation fails",
+        "Verify all check results are displayed clearly"
+      ],
+      "passes": false
+    },
+    {
+      "id": "CHECKS-002",
+      "category": "quality-checks",
+      "priority": "high",
+      "description": "Checks update state automatically after running",
+      "steps": [
+        "Run './atomic checks'",
+        "Wait for checks to complete",
+        "Verify .agent/state/current-state.json is updated",
+        "Confirm buildStatus, lintStatus, testStatus reflect check results",
+        "Check that lastUpdated timestamp is current"
+      ],
+      "passes": false
+    },
+    {
+      "id": "STATE-001",
+      "category": "state-management",
       "priority": "medium",
-      "description": "Contact page available with working contact form",
+      "description": "State file is not committed to git",
       "steps": [
-        "From the landing page, click on the 'Contact' or 'Support' navigation item",
-        "Verify the contact page renders with a form containing name, email, and message fields",
-        "Fill in the form with valid sample data",
-        "Submit the form and verify a success message is displayed",
-        "Confirm no client-side validation errors are shown for valid input"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "AUTH-001",
-      "category": "user-authentication",
-      "priority": "high",
-      "description": "User can sign up with email and password",
-      "steps": [
-        "Navigate to the sign up page (e.g. '/signup')",
-        "Enter a valid email address not previously registered",
-        "Enter a password that meets the documented password policy",
-        "Submit the form and verify an account is created",
-        "Confirm the user is redirected to an authenticated area or sees a success state"
+        "Run './atomic boot-up' to create state",
+        "Run 'git status' in the project",
+        "Verify .agent/state/current-state.json is listed as untracked",
+        "Confirm .gitignore excludes .agent/state/",
+        "Check that .agent/logs/ is also gitignored"
       ],
       "passes": false
     },
     {
-      "id": "AUTH-002",
-      "category": "user-authentication",
-      "priority": "high",
-      "description": "User can log in with existing credentials",
-      "steps": [
-        "Ensure a user account exists with known email and password",
-        "Navigate to the login page (e.g. '/login')",
-        "Enter the valid credentials and submit",
-        "Verify login succeeds and a session or token is created",
-        "Confirm authenticated-only navigation items (e.g. 'Dashboard') are now visible"
-      ],
-      "passes": false
-    },
-    {
-      "id": "AUTH-003",
-      "category": "user-authentication",
+      "id": "DOCS-001",
+      "category": "documentation",
       "priority": "medium",
-      "description": "User can authenticate via external provider (e.g. Google OAuth)",
+      "description": "Protocol files are accessible and properly located",
       "steps": [
-        "Navigate to the login page",
-        "Click the 'Continue with Google' button",
-        "Complete the external provider authentication flow using a test account",
-        "Verify the application receives a valid user profile from the provider",
-        "Confirm the user is logged in and an internal account is associated with the provider identity"
+        "Verify .agent/protocols/CLAUDE.md exists",
+        "Verify .agent/protocols/AGENT_README.md exists",
+        "Verify .agent/protocols/agent-protocol.md exists",
+        "Confirm all protocol files are committed (not gitignored)",
+        "Check that documentation is referenced correctly in README"
       ],
       "passes": false
     },
     {
-      "id": "AUTH-004",
-      "category": "user-authentication",
+      "id": "IMMUTABILITY-001",
+      "category": "test-immutability",
       "priority": "high",
-      "description": "Password reset flow functions end to end",
+      "description": "Test validation prevents modification of test steps",
       "steps": [
-        "Navigate to the login page",
-        "Click the 'Forgot password' link",
-        "Enter the email address of an existing user",
-        "Verify a password reset email is sent to the user inbox in a test environment",
-        "Open the reset link, set a new password, and confirm login works with the new password only"
+        "Create a feature-requirements.json with test features",
+        "Modify a test step (not just 'passes' field)",
+        "Run './atomic validate-tests' or './atomic checks'",
+        "Verify validation fails and shows error message",
+        "Confirm error explains that only 'passes' can be modified"
       ],
       "passes": false
     },
-
     {
-      "id": "ECOM-001",
-      "category": "ecommerce",
+      "id": "IMMUTABILITY-002",
+      "category": "test-immutability",
       "priority": "high",
-      "description": "User can add a physical product to the cart",
+      "description": "Test validation allows updating passes field",
       "steps": [
-        "Navigate to the product catalog page (e.g. '/products')",
-        "Select a product and navigate to its detail page",
-        "Click the 'Add to cart' button",
-        "Verify the cart icon or cart page reflects the updated item count",
-        "Open the cart page and confirm the selected product appears with correct price and quantity"
+        "Create a feature-requirements.json with test features",
+        "Change a test's 'passes' field from false to true",
+        "Run './atomic validate-tests'",
+        "Verify validation passes without errors",
+        "Confirm the change is allowed"
       ],
       "passes": false
     },
     {
-      "id": "ECOM-002",
-      "category": "ecommerce",
+      "id": "SELFCONTAINED-001",
+      "category": "self-contained",
       "priority": "high",
-      "description": "User can complete a simple checkout with test payment",
+      "description": "System is fully self-contained in .agent directory",
       "steps": [
-        "Ensure the cart contains at least one item",
-        "Navigate to the checkout page",
-        "Fill in shipping details with valid sample data",
-        "Use a documented test card number to simulate payment",
-        "Verify a confirmation page is displayed and an order record is created"
+        "Install Atomic Vibes in a test project",
+        "List all files at project root",
+        "Verify ONLY 'atomic' and 'feature-requirements.json' are added",
+        "Confirm NO scripts/, NO CLAUDE.md, NO AGENT_README.md at root",
+        "Verify everything else is in .agent/ directory"
       ],
       "passes": false
     },
     {
-      "id": "ECOM-003",
-      "category": "ecommerce",
-      "priority": "medium",
-      "description": "Logged in user can view order history",
+      "id": "SELFCONTAINED-002",
+      "category": "self-contained",
+      "priority": "high",
+      "description": "Installation does not modify project README",
       "steps": [
-        "Log in as a user who previously completed at least one order",
-        "Navigate to the account or profile page",
-        "Click on the 'Orders' or 'Order history' section",
-        "Verify a list of past orders is displayed",
-        "Confirm each order entry includes status, total, and date"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "CMS-001",
-      "category": "content-management",
-      "priority": "medium",
-      "description": "Content editor can create a new blog post in an admin interface",
-      "steps": [
-        "Log in as a user with content editor permissions",
-        "Navigate to the admin content area (e.g. '/admin/posts')",
-        "Click the 'New post' button",
-        "Fill in the title, slug, and body fields with sample data",
-        "Save the post and verify it appears in the public blog listing"
+        "Create a test project with existing README.md",
+        "Note the README.md content",
+        "Install Atomic Vibes",
+        "Verify README.md is unchanged",
+        "Confirm installer does NOT copy any README to project root"
       ],
       "passes": false
     },
     {
-      "id": "CMS-002",
-      "category": "content-management",
+      "id": "CLEANUP-001",
+      "category": "cleanup",
       "priority": "low",
-      "description": "Content editor can schedule a post for future publication",
+      "description": "System can be completely removed from project",
       "steps": [
-        "Log in as a content editor",
-        "Create a new post or edit an existing draft",
-        "Set a publish date in the future using a date/time picker",
-        "Save the post and confirm its status indicates 'scheduled'",
-        "Verify that the post does not appear publicly until the scheduled time has passed in a test environment"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "API-001",
-      "category": "api",
-      "priority": "high",
-      "description": "Public health check endpoint returns successful status",
-      "steps": [
-        "Send an HTTP GET request to '/health' or the configured health endpoint",
-        "Verify the response status code is 200",
-        "Confirm the response body contains a recognizable 'ok' or equivalent status field",
-        "Check that the response time is less than 500ms under normal conditions"
-      ],
-      "passes": false
-    },
-    {
-      "id": "API-002",
-      "category": "api",
-      "priority": "high",
-      "description": "Authenticated API endpoint requires valid token",
-      "steps": [
-        "Send an HTTP GET request to a protected endpoint without credentials",
-        "Verify the response status code is 401 or 403",
-        "Send the same request with an expired or invalid token",
-        "Confirm the request is rejected with an authentication error",
-        "Send the request with a valid token and verify a 200 response with expected data"
-      ],
-      "passes": false
-    },
-    {
-      "id": "API-003",
-      "category": "api",
-      "priority": "medium",
-      "description": "Rate limiting is applied per API key",
-      "steps": [
-        "Obtain a valid API key for testing",
-        "Send a burst of requests that stays under the documented rate limit and confirm all succeed",
-        "Send requests exceeding the documented limit within the specified time window",
-        "Verify responses begin returning a 429 status code for rate limiting",
-        "Confirm the limit resets after the documented cooldown period"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "DATA-001",
-      "category": "data-pipeline",
-      "priority": "high",
-      "description": "Nightly ETL job loads data from source storage into data warehouse",
-      "steps": [
-        "Trigger the ETL job manually in a non production environment",
-        "Verify the job picks up source files from the configured input location",
-        "Confirm the job completes without errors",
-        "Check that new rows appear in the target warehouse table for the expected date range",
-        "Validate a small sample of transformed records against raw input data"
-      ],
-      "passes": false
-    },
-    {
-      "id": "DATA-002",
-      "category": "analytics-dashboard",
-      "priority": "medium",
-      "description": "Business dashboard displays aggregated metrics from warehouse",
-      "steps": [
-        "Navigate to the analytics dashboard URL",
-        "Verify at least one chart or KPI tile renders successfully",
-        "Confirm the displayed values match the latest data in the warehouse for a known date range",
-        "Interact with a date filter and verify the visuals update accordingly",
-        "Check that no JavaScript errors occur during interactions"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "MOBILE-001",
-      "category": "mobile-app",
-      "priority": "medium",
-      "description": "Mobile app displays splash screen and transitions to home screen",
-      "steps": [
-        "Install the mobile application on a supported test device or emulator",
-        "Launch the app and verify a splash screen appears",
-        "Confirm the splash screen shows the app logo or branding",
-        "Validate that the app transitions automatically to the main home screen within a reasonable time",
-        "Check that the transition does not freeze or crash"
-      ],
-      "passes": false
-    },
-    {
-      "id": "MOBILE-002",
-      "category": "mobile-app",
-      "priority": "medium",
-      "description": "Mobile app supports offline read only mode for cached data",
-      "steps": [
-        "Open the app while connected to the network and navigate to a list of items (e.g. articles or records)",
-        "Close the app and disable network connectivity on the device",
-        "Reopen the app and navigate back to the same section",
-        "Verify that previously loaded items are still visible from local cache",
-        "Confirm that new data is not requested until connectivity is restored"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "ACCESS-001",
-      "category": "accessibility",
-      "priority": "high",
-      "description": "Primary navigation supports keyboard only interaction",
-      "steps": [
-        "Open the web application in a browser",
-        "Use the Tab key to move focus through the primary navigation items",
-        "Verify visible focus indicators are present on each interactive element",
-        "Activate navigation links using Enter or Space keys",
-        "Confirm that navigation works without requiring a mouse"
-      ],
-      "passes": false
-    },
-    {
-      "id": "ACCESS-002",
-      "category": "accessibility",
-      "priority": "medium",
-      "description": "Core pages meet basic color contrast requirements",
-      "steps": [
-        "Navigate to the main landing page, dashboard, and a detail page",
-        "Use an automated contrast checker on primary text and background combinations",
-        "Verify that body text and interactive elements meet WCAG AA contrast ratios",
-        "Confirm that error messages and alerts are clearly legible",
-        "Document any components that fail contrast checks for remediation"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "SEC-001",
-      "category": "security",
-      "priority": "high",
-      "description": "Session is invalidated after user logs out",
-      "steps": [
-        "Log in as a valid user",
-        "Verify that a session cookie or token is present",
-        "Click the 'Log out' control in the UI",
-        "Confirm the user is redirected to a public page",
-        "Attempt to access an authenticated endpoint with the old session and verify access is denied"
-      ],
-      "passes": false
-    },
-    {
-      "id": "SEC-002",
-      "category": "security",
-      "priority": "high",
-      "description": "Role based access control for admin features",
-      "steps": [
-        "Log in as a standard user without admin rights",
-        "Attempt to navigate directly to an admin URL (e.g. '/admin')",
-        "Verify access is denied and a suitable error or redirect is shown",
-        "Log in as a user with admin role",
-        "Confirm the admin interface is accessible and functional"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "OPS-001",
-      "category": "devops-ci",
-      "priority": "high",
-      "description": "Continuous integration pipeline runs on every push to main branch",
-      "steps": [
-        "Commit a small change to the main branch in a test repository",
-        "Push the commit to the remote repository",
-        "Verify that a CI pipeline is triggered automatically",
-        "Confirm the pipeline executes build, test, and static analysis stages",
-        "Ensure the pipeline status is reported back to the repository hosting service"
-      ],
-      "passes": false
-    },
-    {
-      "id": "OPS-002",
-      "category": "devops-cd",
-      "priority": "high",
-      "description": "Deployment pipeline can deploy latest main build to staging environment",
-      "steps": [
-        "Ensure CI pipeline has produced a successful build artifact for the main branch",
-        "Trigger the staging deployment pipeline manually or via tag",
-        "Verify deployment completes without errors",
-        "Confirm the staging URL serves the new application version",
-        "Check that key smoke tests (health check, login, primary workflow) pass in staging"
-      ],
-      "passes": false
-    },
-
-    {
-      "id": "CHAT-001",
-      "category": "chatbot",
-      "priority": "medium",
-      "description": "Support chatbot answers basic greeting message",
-      "steps": [
-        "Open the web or in app chat widget",
-        "Type a simple greeting such as 'Hi' or 'Hello'",
-        "Send the message to the chatbot",
-        "Verify the chatbot returns a friendly response within a few seconds",
-        "Confirm no error messages are visible in the chat transcript"
-      ],
-      "passes": false
-    },
-    {
-      "id": "AUTO-001",
-      "category": "automation",
-      "priority": "low",
-      "description": "Weekly summary email is generated and queued",
-      "steps": [
-        "Trigger the weekly summary job manually in a non production environment",
-        "Verify the job completes without errors in logs",
-        "Check that summary email messages are created and enqueued in the mail system",
-        "Inspect one example email and confirm it includes the expected metrics and content",
-        "Ensure emails are only sent to intended test recipients in lower environments"
+        "Install Atomic Vibes in a test project",
+        "Note original project files",
+        "Remove .agent/ directory and atomic script",
+        "Remove feature-requirements.json if it was added by installer",
+        "Verify project is back to original state with no Atomic Vibes artifacts"
       ],
       "passes": false
     }
