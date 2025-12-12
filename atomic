@@ -1,0 +1,75 @@
+#!/bin/bash
+# atomic - Wrapper script for Atomic Vibes
+# An atomic vibe-coding harness for AI agents
+# Usage: ./atomic <command> [args...]
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ATOMIC_DIR="$SCRIPT_DIR/.agent/scripts"
+
+# Display help if no command provided
+if [ $# -eq 0 ]; then
+    echo "⚛️  Atomic Vibes"
+    echo "An atomic vibe-coding harness for AI agents"
+    echo ""
+    echo "Usage: ./atomic <command> [args...]"
+    echo ""
+    echo "Commands:"
+    echo "  boot-up             - Validate environment and show current state"
+    echo "  new-feature <id> <desc> - Create new feature branch"
+    echo "  checks              - Run all quality checks"
+    echo "  update-state        - Update state with current status"
+    echo "  create-pr <title>   - Create pull request"
+    echo "  validate-tests      - Validate test immutability"
+    echo "  install-hooks       - Install git hooks"
+    echo "  init                - Initialize in new project"
+    echo ""
+    echo "Direct script access: .agent/scripts/<script-name>.sh"
+    exit 0
+fi
+
+COMMAND=$1
+shift
+
+# Map commands to scripts
+case "$COMMAND" in
+    boot-up|boot)
+        exec "$ATOMIC_DIR/boot-up.sh" "$@"
+        ;;
+    new-feature|feature)
+        exec "$ATOMIC_DIR/new-feature.sh" "$@"
+        ;;
+    checks|check)
+        exec "$ATOMIC_DIR/run-checks.sh" "$@"
+        ;;
+    update-state|state)
+        exec "$ATOMIC_DIR/update-state.sh" "$@"
+        ;;
+    create-pr|pr)
+        exec "$ATOMIC_DIR/create-pr.sh" "$@"
+        ;;
+    validate-tests|validate)
+        exec "$ATOMIC_DIR/validate-tests.sh" "$@"
+        ;;
+    install-hooks|hooks)
+        exec "$ATOMIC_DIR/install-hooks.sh" "$@"
+        ;;
+    init|initialize)
+        exec "$ATOMIC_DIR/initialize.sh" "$@"
+        ;;
+    log|run-log)
+        exec "$ATOMIC_DIR/run-log.sh" "$@"
+        ;;
+    compliance|menu)
+        exec "$ATOMIC_DIR/compliance.sh" "$@"
+        ;;
+    llm-setup|llm)
+        exec "$ATOMIC_DIR/llm-autofill.sh" "$@"
+        ;;
+    *)
+        echo "Unknown command: $COMMAND"
+        echo "Run './atomic' with no arguments for help"
+        exit 1
+        ;;
+esac

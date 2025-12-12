@@ -1,0 +1,397 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-12-11",
+    "project": "Sample Multi-Domain Feature Requirements Catalog",
+    "description": "Example feature requirements file covering multiple application types (web, mobile, API, data, automation). Features should start as failing and only the 'passes' field should ever be updated by tools or tests. Never remove or edit tests once created."
+  },
+  "features": [
+    {
+      "id": "WEB-001",
+      "category": "web-navigation",
+      "priority": "high",
+      "description": "Marketing site landing page accessible at root path",
+      "steps": [
+        "Open a browser and navigate to '/'",
+        "Verify a marketing style landing page is rendered",
+        "Confirm there is a primary headline describing the product or service",
+        "Verify there is a clear primary call-to-action button (e.g. 'Get started')",
+        "Check that the page returns HTTP 200"
+      ],
+      "passes": false
+    },
+    {
+      "id": "WEB-002",
+      "category": "web-navigation",
+      "priority": "medium",
+      "description": "Documentation page accessible from main navigation",
+      "steps": [
+        "Navigate to the landing page",
+        "Locate and click the 'Docs' or 'Documentation' link in the header or footer",
+        "Verify the URL changes to '/docs' or similar documentation path",
+        "Confirm a documentation layout renders with a sidebar of topics",
+        "Verify at least one documentation article is visible and readable"
+      ],
+      "passes": false
+    },
+    {
+      "id": "WEB-003",
+      "category": "web-navigation",
+      "priority": "medium",
+      "description": "Contact page available with working contact form",
+      "steps": [
+        "From the landing page, click on the 'Contact' or 'Support' navigation item",
+        "Verify the contact page renders with a form containing name, email, and message fields",
+        "Fill in the form with valid sample data",
+        "Submit the form and verify a success message is displayed",
+        "Confirm no client-side validation errors are shown for valid input"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "AUTH-001",
+      "category": "user-authentication",
+      "priority": "high",
+      "description": "User can sign up with email and password",
+      "steps": [
+        "Navigate to the sign up page (e.g. '/signup')",
+        "Enter a valid email address not previously registered",
+        "Enter a password that meets the documented password policy",
+        "Submit the form and verify an account is created",
+        "Confirm the user is redirected to an authenticated area or sees a success state"
+      ],
+      "passes": false
+    },
+    {
+      "id": "AUTH-002",
+      "category": "user-authentication",
+      "priority": "high",
+      "description": "User can log in with existing credentials",
+      "steps": [
+        "Ensure a user account exists with known email and password",
+        "Navigate to the login page (e.g. '/login')",
+        "Enter the valid credentials and submit",
+        "Verify login succeeds and a session or token is created",
+        "Confirm authenticated-only navigation items (e.g. 'Dashboard') are now visible"
+      ],
+      "passes": false
+    },
+    {
+      "id": "AUTH-003",
+      "category": "user-authentication",
+      "priority": "medium",
+      "description": "User can authenticate via external provider (e.g. Google OAuth)",
+      "steps": [
+        "Navigate to the login page",
+        "Click the 'Continue with Google' button",
+        "Complete the external provider authentication flow using a test account",
+        "Verify the application receives a valid user profile from the provider",
+        "Confirm the user is logged in and an internal account is associated with the provider identity"
+      ],
+      "passes": false
+    },
+    {
+      "id": "AUTH-004",
+      "category": "user-authentication",
+      "priority": "high",
+      "description": "Password reset flow functions end to end",
+      "steps": [
+        "Navigate to the login page",
+        "Click the 'Forgot password' link",
+        "Enter the email address of an existing user",
+        "Verify a password reset email is sent to the user inbox in a test environment",
+        "Open the reset link, set a new password, and confirm login works with the new password only"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "ECOM-001",
+      "category": "ecommerce",
+      "priority": "high",
+      "description": "User can add a physical product to the cart",
+      "steps": [
+        "Navigate to the product catalog page (e.g. '/products')",
+        "Select a product and navigate to its detail page",
+        "Click the 'Add to cart' button",
+        "Verify the cart icon or cart page reflects the updated item count",
+        "Open the cart page and confirm the selected product appears with correct price and quantity"
+      ],
+      "passes": false
+    },
+    {
+      "id": "ECOM-002",
+      "category": "ecommerce",
+      "priority": "high",
+      "description": "User can complete a simple checkout with test payment",
+      "steps": [
+        "Ensure the cart contains at least one item",
+        "Navigate to the checkout page",
+        "Fill in shipping details with valid sample data",
+        "Use a documented test card number to simulate payment",
+        "Verify a confirmation page is displayed and an order record is created"
+      ],
+      "passes": false
+    },
+    {
+      "id": "ECOM-003",
+      "category": "ecommerce",
+      "priority": "medium",
+      "description": "Logged in user can view order history",
+      "steps": [
+        "Log in as a user who previously completed at least one order",
+        "Navigate to the account or profile page",
+        "Click on the 'Orders' or 'Order history' section",
+        "Verify a list of past orders is displayed",
+        "Confirm each order entry includes status, total, and date"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "CMS-001",
+      "category": "content-management",
+      "priority": "medium",
+      "description": "Content editor can create a new blog post in an admin interface",
+      "steps": [
+        "Log in as a user with content editor permissions",
+        "Navigate to the admin content area (e.g. '/admin/posts')",
+        "Click the 'New post' button",
+        "Fill in the title, slug, and body fields with sample data",
+        "Save the post and verify it appears in the public blog listing"
+      ],
+      "passes": false
+    },
+    {
+      "id": "CMS-002",
+      "category": "content-management",
+      "priority": "low",
+      "description": "Content editor can schedule a post for future publication",
+      "steps": [
+        "Log in as a content editor",
+        "Create a new post or edit an existing draft",
+        "Set a publish date in the future using a date/time picker",
+        "Save the post and confirm its status indicates 'scheduled'",
+        "Verify that the post does not appear publicly until the scheduled time has passed in a test environment"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "API-001",
+      "category": "api",
+      "priority": "high",
+      "description": "Public health check endpoint returns successful status",
+      "steps": [
+        "Send an HTTP GET request to '/health' or the configured health endpoint",
+        "Verify the response status code is 200",
+        "Confirm the response body contains a recognizable 'ok' or equivalent status field",
+        "Check that the response time is less than 500ms under normal conditions"
+      ],
+      "passes": false
+    },
+    {
+      "id": "API-002",
+      "category": "api",
+      "priority": "high",
+      "description": "Authenticated API endpoint requires valid token",
+      "steps": [
+        "Send an HTTP GET request to a protected endpoint without credentials",
+        "Verify the response status code is 401 or 403",
+        "Send the same request with an expired or invalid token",
+        "Confirm the request is rejected with an authentication error",
+        "Send the request with a valid token and verify a 200 response with expected data"
+      ],
+      "passes": false
+    },
+    {
+      "id": "API-003",
+      "category": "api",
+      "priority": "medium",
+      "description": "Rate limiting is applied per API key",
+      "steps": [
+        "Obtain a valid API key for testing",
+        "Send a burst of requests that stays under the documented rate limit and confirm all succeed",
+        "Send requests exceeding the documented limit within the specified time window",
+        "Verify responses begin returning a 429 status code for rate limiting",
+        "Confirm the limit resets after the documented cooldown period"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "DATA-001",
+      "category": "data-pipeline",
+      "priority": "high",
+      "description": "Nightly ETL job loads data from source storage into data warehouse",
+      "steps": [
+        "Trigger the ETL job manually in a non production environment",
+        "Verify the job picks up source files from the configured input location",
+        "Confirm the job completes without errors",
+        "Check that new rows appear in the target warehouse table for the expected date range",
+        "Validate a small sample of transformed records against raw input data"
+      ],
+      "passes": false
+    },
+    {
+      "id": "DATA-002",
+      "category": "analytics-dashboard",
+      "priority": "medium",
+      "description": "Business dashboard displays aggregated metrics from warehouse",
+      "steps": [
+        "Navigate to the analytics dashboard URL",
+        "Verify at least one chart or KPI tile renders successfully",
+        "Confirm the displayed values match the latest data in the warehouse for a known date range",
+        "Interact with a date filter and verify the visuals update accordingly",
+        "Check that no JavaScript errors occur during interactions"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "MOBILE-001",
+      "category": "mobile-app",
+      "priority": "medium",
+      "description": "Mobile app displays splash screen and transitions to home screen",
+      "steps": [
+        "Install the mobile application on a supported test device or emulator",
+        "Launch the app and verify a splash screen appears",
+        "Confirm the splash screen shows the app logo or branding",
+        "Validate that the app transitions automatically to the main home screen within a reasonable time",
+        "Check that the transition does not freeze or crash"
+      ],
+      "passes": false
+    },
+    {
+      "id": "MOBILE-002",
+      "category": "mobile-app",
+      "priority": "medium",
+      "description": "Mobile app supports offline read only mode for cached data",
+      "steps": [
+        "Open the app while connected to the network and navigate to a list of items (e.g. articles or records)",
+        "Close the app and disable network connectivity on the device",
+        "Reopen the app and navigate back to the same section",
+        "Verify that previously loaded items are still visible from local cache",
+        "Confirm that new data is not requested until connectivity is restored"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "ACCESS-001",
+      "category": "accessibility",
+      "priority": "high",
+      "description": "Primary navigation supports keyboard only interaction",
+      "steps": [
+        "Open the web application in a browser",
+        "Use the Tab key to move focus through the primary navigation items",
+        "Verify visible focus indicators are present on each interactive element",
+        "Activate navigation links using Enter or Space keys",
+        "Confirm that navigation works without requiring a mouse"
+      ],
+      "passes": false
+    },
+    {
+      "id": "ACCESS-002",
+      "category": "accessibility",
+      "priority": "medium",
+      "description": "Core pages meet basic color contrast requirements",
+      "steps": [
+        "Navigate to the main landing page, dashboard, and a detail page",
+        "Use an automated contrast checker on primary text and background combinations",
+        "Verify that body text and interactive elements meet WCAG AA contrast ratios",
+        "Confirm that error messages and alerts are clearly legible",
+        "Document any components that fail contrast checks for remediation"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "SEC-001",
+      "category": "security",
+      "priority": "high",
+      "description": "Session is invalidated after user logs out",
+      "steps": [
+        "Log in as a valid user",
+        "Verify that a session cookie or token is present",
+        "Click the 'Log out' control in the UI",
+        "Confirm the user is redirected to a public page",
+        "Attempt to access an authenticated endpoint with the old session and verify access is denied"
+      ],
+      "passes": false
+    },
+    {
+      "id": "SEC-002",
+      "category": "security",
+      "priority": "high",
+      "description": "Role based access control for admin features",
+      "steps": [
+        "Log in as a standard user without admin rights",
+        "Attempt to navigate directly to an admin URL (e.g. '/admin')",
+        "Verify access is denied and a suitable error or redirect is shown",
+        "Log in as a user with admin role",
+        "Confirm the admin interface is accessible and functional"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "OPS-001",
+      "category": "devops-ci",
+      "priority": "high",
+      "description": "Continuous integration pipeline runs on every push to main branch",
+      "steps": [
+        "Commit a small change to the main branch in a test repository",
+        "Push the commit to the remote repository",
+        "Verify that a CI pipeline is triggered automatically",
+        "Confirm the pipeline executes build, test, and static analysis stages",
+        "Ensure the pipeline status is reported back to the repository hosting service"
+      ],
+      "passes": false
+    },
+    {
+      "id": "OPS-002",
+      "category": "devops-cd",
+      "priority": "high",
+      "description": "Deployment pipeline can deploy latest main build to staging environment",
+      "steps": [
+        "Ensure CI pipeline has produced a successful build artifact for the main branch",
+        "Trigger the staging deployment pipeline manually or via tag",
+        "Verify deployment completes without errors",
+        "Confirm the staging URL serves the new application version",
+        "Check that key smoke tests (health check, login, primary workflow) pass in staging"
+      ],
+      "passes": false
+    },
+
+    {
+      "id": "CHAT-001",
+      "category": "chatbot",
+      "priority": "medium",
+      "description": "Support chatbot answers basic greeting message",
+      "steps": [
+        "Open the web or in app chat widget",
+        "Type a simple greeting such as 'Hi' or 'Hello'",
+        "Send the message to the chatbot",
+        "Verify the chatbot returns a friendly response within a few seconds",
+        "Confirm no error messages are visible in the chat transcript"
+      ],
+      "passes": false
+    },
+    {
+      "id": "AUTO-001",
+      "category": "automation",
+      "priority": "low",
+      "description": "Weekly summary email is generated and queued",
+      "steps": [
+        "Trigger the weekly summary job manually in a non production environment",
+        "Verify the job completes without errors in logs",
+        "Check that summary email messages are created and enqueued in the mail system",
+        "Inspect one example email and confirm it includes the expected metrics and content",
+        "Ensure emails are only sent to intended test recipients in lower environments"
+      ],
+      "passes": false
+    }
+  ]
+}

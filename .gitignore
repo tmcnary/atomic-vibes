@@ -1,0 +1,60 @@
+# Atomic Vibes - Git Ignore
+# An atomic vibe-coding harness for AI agents
+# This file ensures agent artifacts don't pollute the project repository
+
+# =============================================================================
+# Agent Runtime Artifacts (DO NOT COMMIT)
+# =============================================================================
+
+# Agent state files (runtime only)
+.agent/state/current-state.json
+
+# Agent logs (session outputs)
+.agent/logs/
+
+# Agent memory/context (runtime only)
+.agent/memory/
+
+# Temporary files created during checks
+.agent/tmp/
+*.agent.tmp
+
+# =============================================================================
+# Development Artifacts
+# =============================================================================
+
+# Node modules (if this template includes a package.json)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# =============================================================================
+# What SHOULD be committed:
+# - atomic (wrapper script at root)
+# - .agent/scripts/ (all automation scripts)
+# - .agent/protocols/ (agent instruction files)
+# - .agent/docs/ (system documentation)
+# - .githooks/ (git hook templates)
+# - feature-requirements.json (immutable test definitions)
+# - README.md (project explanation)
+# - .gitignore (this file)
+# =============================================================================
