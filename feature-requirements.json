@@ -90,7 +90,7 @@
         "Confirm output does NOT say 'Atomic Implementation System'",
         "Check that all sections display properly formatted"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "BOOT-002",
@@ -104,7 +104,7 @@
         "Check that it validates git repository status",
         "Verify it completes without errors"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "WRAPPER-001",
