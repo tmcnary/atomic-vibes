@@ -16,15 +16,15 @@ NC='\033[0m' # No Color
 
 echo ""
 echo "========================================="
-echo -e "${BLUE}Atomic Implementation System${NC}"
-echo -e "${BLUE}Initialization Script${NC}"
+echo -e "${BLUE}⚛️  Atomic Vibes${NC}"
+echo -e "${BLUE}An atomic vibe-coding harness for AI agents${NC}"
 echo "========================================="
 echo ""
 
 # Determine if we're running locally or from remote
 if [ -d ".agent" ]; then
     echo -e "${YELLOW}⚠ .agent/ directory already exists${NC}"
-    echo "This project appears to already have the atomic implementation system."
+    echo "This project appears to already have Atomic Vibes installed."
     echo ""
     read -p "Do you want to re-initialize? (y/N): " -n 1 -r
     echo
@@ -177,7 +177,7 @@ cat > .agent/state/current-state.json <<EOF
   "lintStatus": "unknown",
   "testStatus": "unknown",
   "nextActions": [
-    "Run './.agent/scripts/boot-up.sh' to validate environment",
+    "Run './atomic boot-up' to validate environment",
     "Review and fill in .agent/memory/context.json placeholders",
     "Create or update feature-requirements.json",
     "Start working on first feature"
@@ -186,7 +186,7 @@ cat > .agent/state/current-state.json <<EOF
     {
       "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
       "agent": "initialize.sh",
-      "action": "Initial setup of atomic implementation system",
+      "action": "Initial setup of Atomic Vibes",
       "outcome": "success"
     }
   ]
@@ -256,20 +256,20 @@ echo ""
 
 # Install git hooks if this is a git repository
 if [ -d ".git" ]; then
-    if ./.agent/scripts/install-hooks.sh 2>/dev/null; then
+    if ./atomic install-hooks 2>/dev/null; then
         echo -e "${GREEN}✓ Git hooks installed${NC}"
     else
-        echo -e "${YELLOW}⚠ Could not install git hooks (run ./.agent/scripts/install-hooks.sh manually)${NC}"
+        echo -e "${YELLOW}⚠ Could not install git hooks (run ./atomic install-hooks manually)${NC}"
     fi
 else
     echo -e "${YELLOW}⚠ Not a git repository - git hooks will be installed after 'git init'${NC}"
-    echo "  Run ./.agent/scripts/install-hooks.sh after initializing git"
+    echo "  Run ./atomic install-hooks after initializing git"
 fi
 
 echo ""
 echo -e "${BLUE}Step 4: Next Steps${NC}"
 echo ""
-echo "The atomic implementation system has been installed!"
+echo "The Atomic Vibes has been installed!"
 echo ""
 echo "To complete setup, you need to:"
 echo ""
@@ -289,10 +289,10 @@ echo "   2. Read .agent/memory/domain.md and fill it with actual domain knowledg
 echo "      by analyzing the code"
 echo "   3. Generate a comprehensive feature-requirements.json by analyzing"
 echo "      what features exist and what still needs to be built"
-echo -e "   4. Run ./.agent/scripts/boot-up.sh to validate everything${NC}"
+echo -e "   4. Run ./atomic boot-up to validate everything${NC}"
 echo ""
 echo "3. ${YELLOW}Run the boot-up script:${NC}"
-echo "   ./.agent/scripts/boot-up.sh"
+echo "   ./atomic boot-up"
 echo ""
 echo "4. ${YELLOW}Read the documentation:${NC}"
 echo "   - .agent/protocols/CLAUDE.md - Quick reference for Claude Code"
